@@ -177,6 +177,7 @@ Sample output image:
 ### Requirements
 
 * C++11
+* nlohmann-json (required header file is already included)
 * gnuplot for visualization (install using: apt-get install gnuplot)
 
 Developed on Ubuntu 14.04.
