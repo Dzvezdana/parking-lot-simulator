@@ -114,8 +114,7 @@ Analyses JSON data and identifies the busiest time on the parking lot, i.e. when
 
 Data representing arbitrary number of work days is passed in the following format:
 
-    [
-    	{
+			[{
 				"Id": 0,
 				"ArrivalTime": "2016-05-01T06:36:00",
 				"LeaveTime": "2016-05-01T13:28:00"
@@ -129,8 +128,7 @@ Data representing arbitrary number of work days is passed in the following forma
 				"Id": 2,
 				"ArrivalTime": "2016-05-04T00:15:00",
 				"LeaveTime": "2016-05-04T06:55:00"
-			}
-		]
+			}]
 
 #### Output
 
