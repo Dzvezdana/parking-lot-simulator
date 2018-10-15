@@ -128,13 +128,14 @@ Data representing arbitrary number of work days is passed in the following forma
 					"Id": 2,
 					"ArrivalTime": "2016-05-04T00:15:00",
 					"LeaveTime": "2018-05-03T06:55:00"
-				}]
+			}]
 
 #### Output
 
 Time interval with maximum number of cars for each date.
 
 ---
+
 			01.05.2016
       06:36 Arrival
       14:17 Arrival
@@ -150,6 +151,7 @@ Time interval with maximum number of cars for each date.
 
       02.06.2018
       01:35 Departure
+
 ---
 
 Maximum number of cars: 2 at 10:35 - 11:10.
