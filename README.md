@@ -115,24 +115,49 @@ Analyses JSON data and identifies the busiest time on the parking lot, i.e. when
 Data representing arbitrary number of work days is passed in the following format:
 
 			[{
-				"Id": 0,
-				"ArrivalTime": "2016-05-01T06:36:00",
-				"LeaveTime": "2016-05-01T13:28:00"
-			}, 
-			{
-				"Id": 1,
-				"ArrivalTime": "2016-05-01T14:17:00",
-				"LeaveTime": "2016-05-02T01:35:00"
-			}, 
-			{
-				"Id": 2,
-				"ArrivalTime": "2016-05-04T00:15:00",
-				"LeaveTime": "2016-05-04T06:55:00"
-			}]
+					"Id": 0,
+					"ArrivalTime": "2016-05-01T06:36:00",
+					"LeaveTime": "2018-05-04T13:28:00"
+				}, 
+				{
+					"Id": 1,
+					"ArrivalTime": "2016-05-01T14:17:00",
+					"LeaveTime": "2018-06-02T01:35:00"
+				}, 
+				{
+					"Id": 2,
+					"ArrivalTime": "2016-05-04T00:15:00",
+					"LeaveTime": "2018-05-03T06:55:00"
+				}]
 
 #### Output
 
 Time interval with maximum number of cars for each date.
+
+---
+			01.05.2016
+      06:36 Arrival
+      14:17 Arrival
+
+      04.05.2016
+      00:15 Arrival
+
+      03.05.2018
+      06:55 Departure
+
+      04.05.2916
+      13:28 Departure
+
+      02.06.2018
+      01:35 Departure
+---
+
+Maximum number of cars: 2 at 10:35 - 11:10.
+
+Note: In case of equal number of overlaping intervals in different time frames,
+the latest one is printed as output.
+
+---
 
 	Date: 2016-05-01
 	Maximum numbers of cars 2 at 14:17-23:59.
