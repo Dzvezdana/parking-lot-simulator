@@ -23,7 +23,8 @@
 
     Tested on Ubuntu 18.04. 
 
-    To run use: g++ -std=c++11 parking_lot.cpp -o parking_lot
+    To compile and run use: g++ -std=c++11 parking_lot_json.cpp -o parking_lot_json
+                            ./parking_lot_json
 
     @author Dzvezdana Arsovska
     @version 1.0 17/01/2018
@@ -74,8 +75,9 @@ struct Event
     the time interval when this number was highest.
 
     @param events vector of arrival and leaving times
+    @return maxVisits maximum number of visits
 */
-void calculateResultingValues(std::vector<Event>& events)
+int calculateResultingValues(std::vector<Event>& events)
 {
     int maxVisits, localMaxVisits, localStartTime, localEndTime;
     std::vector<Event>::const_iterator it;
@@ -179,10 +181,12 @@ void calculateResultingValues(std::vector<Event>& events)
     std::cout << "at " << localStartTimeStr.insert((localStartTimeStr.length() - 2), ":") << "-" 
       << localEndTimeStr.insert((localEndTimeStr.length() - 2), ":") << "." << std::endl;
    }
+
+   return maxVisits;
 }
 
 /**
-		Groups the times based on the dates.
+	Groups the times based on the dates.
 
     @param data vector of arrival and leaving times
     @return groups of times based on the date
@@ -206,61 +210,75 @@ std::vector<std::vector<Date> > groupByIDs(const std::vector<Date>& data)
 }
 
 /**
+    Check if the file exists before accesing it.
+
+    @param fileName Input file
+*/
+bool isFileExist(const char *fileName)
+{
+    std::ifstream infile(fileName);
+    return infile.good();
+}
+
+/**
     Read the content from the file.
 
     @param fileName Input file
 */
 void processJSONData(std::string fileName)
 {
-	std::string tmpData;
+    std::string tmpData;
 	std::vector<std::string> processData;
 	std::vector<Date> timeEvents;
-  std::ifstream ifs(fileName);
-  json j = json::parse(ifs);
+    std::ifstream ifs(fileName);
+    json j = json::parse(ifs);
 
-  // Extract the data from the JSON file.
-  for (const auto& x : j.items())
-   {
+    // Extract the data from the JSON file.
+    for (const auto& x : j.items())
+    {
       for(auto& y : x.value())
       {
       	tmpData = y.dump();
       	processData.push_back(tmpData);
       }
-   }
+    }
 
-	// Separate the data based on the type of the event (leave or arrive).
-	int cnt = 1;
-	for (auto& it: processData) 
-	{
-		if(cnt == 1) 
-			{
-				Date eStart(it.substr(1,10), it.substr(12,5), EventType::ARRIVE);
-				timeEvents.push_back(eStart);
-			}
+    // Separate the data based on the type of the event (leave or arrive).
+    int cnt = 1;
+    for (auto& it: processData) 
+    {
+    	if(cnt == 1) 
+    		{
+    			Date eStart(it.substr(1,10), it.substr(12,5), EventType::ARRIVE);
+    			timeEvents.push_back(eStart);
+    		}
 
-		if(cnt == 3) 
-		{
-			Date eEnd(it.substr(1,10), it.substr(12,5), EventType::LEAVE);
-			timeEvents.push_back(eEnd);
-		}
+    	if(cnt == 3) 
+    	{
+    		Date eEnd(it.substr(1,10), it.substr(12,5), EventType::LEAVE);
+    		timeEvents.push_back(eEnd);
+    	}
 
-		cnt++;
-		if(cnt > 3) {cnt = 1;}
-	}
+    	cnt++;
+    	if(cnt > 3) {cnt = 1;}
+    }
 
-	// Sort the dates, starting from the oldest one.
-	std::sort(timeEvents.begin(), timeEvents.end(), [](const Date& a, const Date &b)->bool {return a.date < b.date;}); 
+    // Sort the dates, starting from the oldest one.
+    std::sort(timeEvents.begin(), timeEvents.end(), [](const Date& a, const Date &b)->bool {return a.date < b.date;}); 
 
-	// Group the times based on the date.
-	std::vector<std::vector<Date> > arrivalGroups = groupByIDs(timeEvents);
+    // Group the times based on the date.
+    std::vector<std::vector<Date> > arrivalGroups = groupByIDs(timeEvents);
 
-	int timeEvent;
-	std::vector<Event> events;
-	std::string processTime;
+    int timeEvent;
+    std::vector<Event> events;
+    std::string processTime;
+    std::ofstream myfile;
+    // For plotting the data
+    myfile.open ("datafile.dat");
 
-	// Call the calculating function for each group.
-	for(auto const& group: arrivalGroups)
-  {
+    // Call the calculating function for each group.
+    for(auto const& group: arrivalGroups)
+    {
       if(!group.empty())
           std::cout << "Date: " << group.front().date << '\n';
 
@@ -273,13 +291,22 @@ void processJSONData(std::string fileName)
         	events.push_back(eTime);
       }
 
-     	calculateResultingValues(events);
+     	int res = calculateResultingValues(events);
+        myfile << group.front().date << std::setw(10) << v_res << "\n";
      	events.clear();
      	std::cout << '\n';
-  }
+    }
 }
 
 int main()
-{
-	processJSONData("test_data1.json");
+{   
+    if(isFileExist("test_data1.json")) 
+    {
+        processJSONData("test_data1.json");
+    }
+    else 
+    {
+        std::cout << "Failed to open the file." << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }

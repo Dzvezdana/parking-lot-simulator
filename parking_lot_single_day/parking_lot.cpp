@@ -11,7 +11,8 @@
 
     Tested on Ubuntu 18.04. 
 
-    To run use: g++ -std=c++11 parking_lot.cpp -o parking_lot
+    To compile and run use: g++ -std=c++11 parking_lot.cpp -o parking_lot
+                            ./parking_lot
 
     @author Dzvezdana Arsovska
     @version 1.0 17/01/2018
@@ -184,5 +185,5 @@ void readFile(std::string fileName)
 
 int main()
 {
-    readFile("numbers.txt");
+    readFile("test_data1.txt");
 }
