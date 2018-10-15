@@ -136,7 +136,7 @@ Time interval with maximum number of cars for each date.
 
 ---
 
-			01.05.2016
+      01.05.2016
       06:36 Arrival
       14:17 Arrival
 
