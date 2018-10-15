@@ -292,7 +292,7 @@ void processJSONData(std::string fileName)
       }
 
      	int res = calculateResultingValues(events);
-        myfile << group.front().date << std::setw(10) << v_res << "\n";
+        myfile << group.front().date << "  " << res << "\n";
      	events.clear();
      	std::cout << '\n';
     }
