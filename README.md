@@ -74,6 +74,7 @@ Maximum number of cars: 1. No overlaing intervals.
 	CAR 2                                      xxxxxxxxxxxxxxxxxxxx
 	
 Maximum number of cars: 1. No overlaing intervals.
+
 Note: In case two events coincide, leaving events are places before arrival events.
 
 ---
@@ -90,6 +91,7 @@ Note: In case two events coincide, leaving events are places before arrival even
 	CAR 4                                     xxxxxxxxxxxxxxxxxxxx
 
 Maximum number of cars: 2 at 10:35 - 11:10.
+
 Note: In case of equal number of overlaping intervals in different time frames,
 the latest one is printed as output.
 
@@ -134,6 +136,32 @@ Data representing arbitrary number of work days is passed in the following forma
 
 Time interval with maximum number of cars for each date.
 
+	Date: 2016-05-01
+	Maximum numbers of cars 2 at 14:17-23:59.
+
+	Date: 2016-05-04
+	Maximum numbers of cars 3 at 00:15-23:59.
+
+	Date: 2018-05-03
+	Maximum numbers of cars 3 at 00:00-06:55.
+
+	Date: 2018-05-04
+	Maximum numbers of cars 2 at 00:00-13:28.
+
+	Date: 2018-06-02
+	Maximum numbers of car: 1 
+	No overlapping intevals.
+
+#### How to run
+
+Navigate to parking_lot_JSON and run the following command:
+
+```shell
+g++ -std=c++11 parking_lot_json.cpp -o parking_lot_json
+./parking_lot_json
+```
+---
+
 ### Visualization
 
 Its possible to plot the maximum number of cars for each date. To generate the plot run:
@@ -147,16 +175,6 @@ Sample output image:
 <p align="center">
 	<img src="https://raw.githubusercontent.com/Dzvezdana/parking-lot-simulator/master/parking_lot_JSON/chart_1.png">  
 </p>
-
-#### How to run
-
-Navigate to parking_lot_JSON and run the following command:
-
-```shell
-g++ -std=c++11 parking_lot_json.cpp -o parking_lot_json
-./parking_lot
-```
----
 
 ### Requirements
 
