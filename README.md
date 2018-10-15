@@ -179,6 +179,6 @@ Sample output image:
 * C++11
 * gnuplot for visualization (install using: apt-get install gnuplot)
 
-Developed on Ubuntu 18.04.
+Developed on Ubuntu 14.04.
 
 
